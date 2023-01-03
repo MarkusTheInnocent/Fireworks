@@ -1,11 +1,14 @@
-class Raket {
+class Raket { //<>//
 
   int bang =0;
   float lunte = 0.0;
   color farver;
   float xpos, ypos;
-  int gram = 790;
-  int radiu = 50;
+  int gram = 300;
+  int r=1; // for at gøre radius størrer eller mindre...
+
+  // Laver raketten mindre. fra 50 til 10
+  int radiu = 10;
 
   Raket(int b, float l, color f) {
     bang = b;
@@ -15,6 +18,8 @@ class Raket {
 
 
   void visRaket() {
+    // farv min raket i den farve jeg har valgt
+    fill(farver);
     circle(xpos, ypos, radiu);
   }
 
@@ -25,19 +30,21 @@ class Raket {
 
   void flytRaket() {
 
-    if (ypos > gram) {
-
-
-      xpos++;
-      ypos--;
-    } else {
-      radiu++;
-      gram = 0;
-    ypos--;
-    }
-    if (gram == 0 && radiu > 100) {
-      radiu--;
+    if (ypos > gram && gram != 0) { // FORTSÆT OP
+      xpos=xpos+1;
+      ypos=ypos-2;
       
+    } else { // NÅR HØJDEN ER NÅET - EKSPLODER!
+      gram=0; // Vores markering for at højden er nået. Ikke god programmering men det virker.. //<>//
+      radiu = radiu+r; // gør radius en størrer
+      
+      if (radiu>100) {
+        r = -1;
+      }
+      else if(radiu<9) {
+        radiu = 0; // så forsvinder den helt.
+        r=0;      // nu skal vi hverken lægge til eller trække fra i radius. 
+      }
       
     }
   }
